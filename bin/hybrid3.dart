@@ -2,8 +2,7 @@ import 'package:hybrid3/hybrid3.dart' as hybrid3;
 import "dart:convert";
 
 class Student {
-  List<Map<String, String>>
-      people; //setting it as a field to make sure its accessible in the whole class
+  List<Map<String, String>> people;
 
   Student(this.people);
 
@@ -19,11 +18,11 @@ class Student {
   }
 
   void plus(Map<String, String> person) {
-    //todo Add a new person to the list
+    people.add(person);
   }
 
-  void remove(String field) {
-    //todo Remove the first item in the list that matches "field" using removeWhere()
+  void remove(String field, String value) {
+    people.removeWhere((people) => people[field] == value);
   }
 }
 
@@ -43,10 +42,13 @@ void main(List<String> arguments) {
       studentLIST.map((item) => Map<String, String>.from(item)).toList();
 
   Student s = Student(studentMAP);
-  //Testing Sort and Output methods
-  print("Unsorted");
+  //Testing the put method
+  print("Original");
   s.output();
-  s.sort("last");
-  print("Sorted");
+  s.plus({"first": "Hugues", "last": "Joan", "email": "huguesjoan9@gmail.com"});
+  print("New");
+  s.output();
+  s.remove("first", "Hugues");
+  print("After remove");
   s.output();
 }
