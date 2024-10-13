@@ -22,7 +22,7 @@ class Student {
   }
 
   void remove(String field, String value) {
-    people.removeWhere((people) => people[field] == value);
+    people.removeWhere((people) => people[field]?.contains(value) ?? false);
   }
 }
 
@@ -42,13 +42,21 @@ void main(List<String> arguments) {
       studentLIST.map((item) => Map<String, String>.from(item)).toList();
 
   Student s = Student(studentMAP);
-  //Testing the put method
-  print("Original");
+
+  //Calling Everything together
+  print("Initial ");
   s.output();
-  s.plus({"first": "Hugues", "last": "Joan", "email": "huguesjoan9@gmail.com"});
-  print("New");
+  s.plus({
+    "first": "Hugues Joan",
+    "last": "Kabagamba Manzi",
+    "email": "huguesjoan9@gmail.com"
+  });
+  print("After plus");
   s.output();
-  s.remove("first", "Hugues");
+  s.remove("first", "Hugues ");
   print("After remove");
+  s.output();
+  s.sort("first");
+  print("After sort");
   s.output();
 }
