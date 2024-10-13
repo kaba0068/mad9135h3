@@ -2,16 +2,20 @@ import 'package:hybrid3/hybrid3.dart' as hybrid3;
 import "dart:convert";
 
 class Student {
-  Student(List<Map<String, String>> people) {
-    print("object");
-  }
+  List<Map<String, String>>
+      people; //setting it as a field to make sure its accessible in the whole class
+
+  Student(this.people);
 
   void sort(String field) {
-    //todo Sort the items in the list based on "field"
+    people.sort((a, b) => a[field]?.compareTo(b[field] ?? "") ?? -1);
   }
 
   void output() {
-    //todo Loop through list and print every item
+    for (var person in people) {
+      print(
+          "First_name: ${person["first"]}, Last_name: ${person["last"]}, Email: ${person["email"]}");
+    }
   }
 
   void plus(Map<String, String> person) {
@@ -38,5 +42,11 @@ void main(List<String> arguments) {
   List<Map<String, String>> studentMAP =
       studentLIST.map((item) => Map<String, String>.from(item)).toList();
 
-  print(studentMAP[0] is Map<String, String>);//checking to see if the type is right
+  Student s = Student(studentMAP);
+  //Testing Sort and Output methods
+  print("Unsorted");
+  s.output();
+  s.sort("last");
+  print("Sorted");
+  s.output();
 }
